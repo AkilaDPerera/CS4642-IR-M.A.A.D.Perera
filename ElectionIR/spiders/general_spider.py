@@ -5,6 +5,7 @@ class QuotesSpider(scrapy.Spider):
     name = "general"
     count = 0
 
+    allowed_domains = ["slelections.gov.lk"]
     start_urls = ['http://www.slelections.gov.lk/web/index.php/en/']
 
     def parse(self, response):
