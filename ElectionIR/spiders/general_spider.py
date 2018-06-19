@@ -5,8 +5,8 @@ class QuotesSpider(scrapy.Spider):
     name = "general"
     count = 0
 
-    allowed_domains = ["slelections.gov.lk"]
-    start_urls = ['http://www.slelections.gov.lk/web/index.php/en/']
+    allowed_domains = ["motortraffic.gov.lk"]
+    start_urls = ['http://www.motortraffic.gov.lk/web/index.php?lang=en']
 
     def parse(self, response):
         body = response.body
@@ -16,8 +16,13 @@ class QuotesSpider(scrapy.Spider):
         print ("********************* %d ************************"%(self.count))
 
         # Saving the page
-        page = response.url.split("/")[-2]
-        filename = 'data/data-%s.html' % page
+        name = response.url
+        name = name.replace("/", "-")
+        name = name.replace("?", "")
+        name = name.replace(".", "-")
+        name = name.replace("http:--", "")
+        
+        filename = 'data/data-%s.html' % name
         with open(filename, 'wb') as f:
             f.write(body)
         self.log('Saved file %s' % filename)
